@@ -56,6 +56,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  final List<String> habitos = [
+    'Beber água',
+    'Ler',
+    'Exercitar',
+    'Estudar Flutter',
+  ];
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -94,44 +101,21 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 8),
             Text('Acompanhe seus hábitos diários'),
             SizedBox(height: 24),
-            Container(
+            ...habitos.map((habito) {
+            return Container(
               padding: EdgeInsets.all(16),
+              margin: EdgeInsets.only(bottom: 12),
               child: Row(
-              children: [
-              Icon(Icons.water_drop),
-              SizedBox(width: 12),
-              Text('Beber água'),
-              Spacer(),
-              Text('0/1'),
-              ],
+                children: [
+                  Icon(Icons.check_circle_outline),
+                  SizedBox(width: 12),
+                  Text(habito),
+                  Spacer(),
+                  Text('0/1'),
+                ],
               ),
-          ),
-            SizedBox(height: 12),
-            Container(
-              padding: EdgeInsets.all(16),
-              child: Row(
-              children: [
-              Icon(Icons.menu_book),
-              SizedBox(width: 12),
-              Text('Ler'),
-              Spacer(),
-              Text('0/1'),
-              ],
-              ),
-          ),
-            SizedBox(height: 12),
-            Container(
-              padding: EdgeInsets.all(16),
-              child: Row(
-              children: [
-              Icon(Icons.directions_run),
-              SizedBox(width: 12),
-              Text('Exercitar'),
-              Spacer(),
-              Text('0/1'),
-              ],
-              ),
-          ),
+            );
+          }).toList(),  
           ],
         ),
       ),
