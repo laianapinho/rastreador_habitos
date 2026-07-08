@@ -56,12 +56,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  final List<String> habitos = [
-    'Beber água',
-    'Ler',
-    'Exercitar',
-    'Estudar Flutter',
-  ];
+  final List<Map<String, dynamic>> habitos = [
+  {'nome': 'Beber água', 'feito': false},
+  {'nome': 'Ler', 'feito': false},
+  {'nome': 'Exercitar', 'feito': false},
+  {'nome': 'Estudar Flutter', 'feito': false},
+];
 
   void _incrementCounter() {
     setState(() {
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+        // the App.build method, and use it to set our appbar  .
         title: Text(widget.title),
       ),
       body: Padding(
@@ -102,21 +102,28 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('Acompanhe seus hábitos diários'),
             SizedBox(height: 24),
             ...habitos.map((habito) {
-            return Container(
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsets.only(bottom: 12),
-              child: Row(
-                children: [
-                  Icon(Icons.check_circle_outline),
-                  SizedBox(width: 12),
-                  Text(habito),
-                  Spacer(),
-                  Text('0/1'),
-                ],
-              ),
-            );
-          }).toList(),  
-          ],
+              return Container(
+                padding: EdgeInsets.all(16),
+                margin: EdgeInsets.only(bottom: 12),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: habito['feito'],
+                      onChanged: (valor) {
+                        setState(() {
+                          habito['feito'] = valor ?? false;
+                        });
+                      },
+                    ),
+                    SizedBox(width: 12),
+                    Text(habito['nome']),
+                    Spacer(),
+                    Text(habito['feito'] ? '1/1' : '0/1'),
+                  ],
+                ),
+              );
+            }).toList(),
+  ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
