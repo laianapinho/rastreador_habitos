@@ -38,6 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final int totalHabitos = habitos.length;
+    final int habitosFeitos = habitos
+        .where((habito) => habito['feito'] == true)
+        .length;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -52,6 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 8),
             Text(
               'Acompanhe seus hábitos diários',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            SizedBox(height: 8),
+            Text(
+              '$habitosFeitos de $totalHabitos hábitos concluídos',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             SizedBox(height: 24),
