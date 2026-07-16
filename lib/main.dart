@@ -4,6 +4,13 @@ void main() {
   runApp(const MyApp());
 }
 
+class Habito {
+  String nome;
+  bool feito;
+
+  Habito({required this.nome, required this.feito});
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -29,19 +36,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Map<String, dynamic>> habitos = [
-    {'nome': 'Beber água', 'feito': false},
-    {'nome': 'Ler', 'feito': false},
-    {'nome': 'Exercitar', 'feito': false},
-    {'nome': 'Estudar Flutter', 'feito': false},
+  final List<Habito> habitos = [
+    Habito(nome: 'Beber água', feito: false),
+    Habito(nome: 'Ler', feito: false),
+    Habito(nome: 'Exercitar', feito: false),
+    Habito(nome: 'Estudar Flutter', feito: false),
   ];
-
   @override
   Widget build(BuildContext context) {
     final int totalHabitos = habitos.length;
-    final int habitosFeitos = habitos
-        .where((habito) => habito['feito'] == true)
-        .length;
+    final int habitosFeitos = habitos.where((habito) => habito.feito).length;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -75,17 +79,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   children: [
                     Checkbox(
-                      value: habito['feito'],
+                      value: habito.feito,
                       onChanged: (valor) {
                         setState(() {
-                          habito['feito'] = valor ?? false;
+                          habito.feito = valor ?? false;
                         });
                       },
                     ),
                     SizedBox(width: 12),
-                    Text(habito['nome']),
+                    Text(habito.nome),
                     Spacer(),
-                    Text(habito['feito'] ? '1/1' : '0/1'),
+                    Text(habito.feito ? '1/1' : '0/1'),
                   ],
                 ),
               );
