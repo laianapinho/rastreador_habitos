@@ -99,10 +99,70 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('Adicionar novo hábito');
+          //abrindo a segunda tela
+          //context: É o "endereço" do seu widget na árvore de widgets.
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddHabitPage()),
+          );
         },
         tooltip: 'Adicionar hábito',
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class AddHabitPage extends StatefulWidget {
+  const AddHabitPage({super.key});
+
+  // cria o State
+  @override
+  State<AddHabitPage> createState() => _AddHabitPageState();
+}
+
+class _AddHabitPageState extends State<AddHabitPage> {
+  // controller: controla o texto digitado
+  final TextEditingController nomeController = TextEditingController();
+
+  // cria dispose: libera memória
+  @override
+  void dispose() {
+    nomeController.dispose();
+    super.dispose();
+  }
+
+  // cria build
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Novo Hábito'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: nomeController,
+              decoration: InputDecoration(
+                labelText: 'Nome do hábito',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Acesse o texto usando o controlador
+                print('Enviar: ${nomeController.text}');
+
+                Navigator.pop(context);
+              },
+              child: Text('Salvar'),
+            ),
+          ],
+        ),
       ),
     );
   }
